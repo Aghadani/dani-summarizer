@@ -3,7 +3,7 @@ from google import genai
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Lumina",
+    page_title="Dani-summarizer",
     page_icon="✿",
     layout="centered",
 )
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
-  <div class="main-title">Lumina</div>
+  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
+  <div class="main-title">Dani<span>-summarizer</span></div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
@@ -451,7 +451,7 @@ if clicked:
 
             with st.spinner("Crafting your summary..."):
                 response = client_gemini.models.generate_content(
-                    model="gemini-2.5-flash-preview-04-17",
+                    model="gemini-2.0-flash",
                     contents=system_prompt + "\n\n" + user_prompt,
                 )
 
