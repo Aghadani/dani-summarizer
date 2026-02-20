@@ -1,19 +1,20 @@
-# ✦ Distill — Humanized Text Summarizer
+# ✿ Dani-summarizer
 
-A beautiful, dark-themed text summarizer powered by Claude AI. Paste any text and get a warm, natural, human-sounding summary — not robotic output.
+A beautifully designed, humanized text summarizer powered by Claude AI. Paste any text and get a warm, natural, human-sounding summary — in your chosen tone and length.
 
 ## Features
 
-- 🎨 **4 tone options** — Conversational, Professional, Casual, Empathetic  
+- 🌿 **Light editorial aesthetic** — warm cream & terracotta theme  
+- 🎭 **4 tone options** — Conversational, Professional, Casual, Empathetic  
 - 📏 **3 length options** — Concise, Balanced, Detailed  
-- 📊 **Word reduction stats** — see how much was compressed  
-- ✦ Powered by Claude (Anthropic)
+- 📊 **Word reduction stats**  
+- ✿ Powered by Claude (Anthropic)
 
 ## Deploy on Streamlit Cloud
 
 1. Fork this repo
-2. Go to [share.streamlit.io](https://share.streamlit.io) and connect your GitHub
-3. Select this repo, set `app.py` as the entry point
+2. Go to [share.streamlit.io](https://share.streamlit.io) → connect GitHub
+3. Select this repo, set `app.py` as entry point
 4. Under **Settings → Secrets**, add:
    ```toml
    ANTHROPIC_API_KEY = "sk-ant-your-key-here"
@@ -27,9 +28,4 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-Create `.streamlit/secrets.toml` with your API key (see above).
-
-## Stack
-
-- [Streamlit](https://streamlit.io) — UI framework  
-- [Anthropic Python SDK](https://github.com/anthropic-ai/anthropic-python) — Claude API  
+Create `.streamlit/secrets.toml` locally with your API key (never commit this file).
