@@ -3,7 +3,7 @@ import anthropic
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Distill — Humanized Summarizer",
+    page_title="Dani — Humanized Summarizer",
     page_icon="✦",
     layout="centered",
 )
@@ -254,7 +254,7 @@ st.markdown("""
 <div class="distill-header">
   <div class="logo-row">
     <div class="diamond"></div>
-    <span class="logo-wordmark">Distill</span>
+    <span class="logo-wordmark">Dani_Tech</span>
     <div class="diamond"></div>
   </div>
   <div class="main-title">Text made <em>human.</em></div>
@@ -389,6 +389,6 @@ if clicked:
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="distill-footer">
-  Powered by Claude · Built with Streamlit · No data stored
+  Powered by Agentic AI · Built with Streamlit · No data stored
 </div>
 """, unsafe_allow_html=True)
