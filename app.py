@@ -1,9 +1,9 @@
 import streamlit as st
-import anthropic
+import google.generativeai as genai  # pip install google-generativeai
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Told by Dani",
+    page_title="Dani-summarizer",
     page_icon="✿",
     layout="centered",
 )
@@ -84,7 +84,7 @@ html, body, [class*="css"] {
     font-family: 'Jost', sans-serif;
     font-size: 13px;
     font-weight: 300;
-    color: #000000;  
+    color: #8a7060;
     letter-spacing: 0.06em;
     margin-top: 14px;
     line-height: 1.7;
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
-  <div class="main-title">Lumina</div>
+  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
+  <div class="main-title">Dani<span>-summarizer</span></div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
@@ -442,21 +442,21 @@ if clicked:
 
         try:
             try:
-                api_key = st.secrets["ANTHROPIC_API_KEY"]
+                api_key = st.secrets["GEMINI_API_KEY"]
             except (KeyError, FileNotFoundError):
-                st.error("⚠️ API key not found. Please add ANTHROPIC_API_KEY to your Streamlit secrets.")
+                st.error("⚠️ API key not found. Please add GEMINI_API_KEY to your Streamlit secrets.")
                 st.stop()
-            client = anthropic.Anthropic(api_key=api_key)
+
+            genai.configure(api_key=api_key)
+            gemini = genai.GenerativeModel(
+                model_name="gemini-2.5-flash-preview-04-17",
+                system_instruction=system_prompt,
+            )
 
             with st.spinner("Crafting your summary..."):
-                response = client.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1000,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": user_prompt}],
-                )
+                response = gemini.generate_content(user_prompt)
 
-            summary = response.content[0].text
+            summary = response.text
 
             orig_words = len(input_text.strip().split())
             summ_words = len(summary.strip().split())
@@ -498,6 +498,6 @@ if clicked:
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-footer">
-  <div class="footer-ornament">✿ &nbsp; Dani-summarizer &nbsp; · &nbsp; Powered by Claude &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
+  <div class="footer-ornament">✿ &nbsp; Dani-summarizer &nbsp; · &nbsp; Powered by Gemini &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
 </div>
 """, unsafe_allow_html=True)
