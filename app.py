@@ -3,7 +3,7 @@ import google.generativeai as genai  # pip install google-generativeai
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Dani-summarizer",
+    page_title="Lumina",
     page_icon="✿",
     layout="centered",
 )
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
-  <div class="main-title">Dani<span>-summarizer</span></div>
+  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
+  <div class="main-title">Lumina</div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
