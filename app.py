@@ -3,7 +3,7 @@ import anthropic
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Dani-summarizer",
+    page_title="Told by Dani",
     page_icon="✿",
     layout="centered",
 )
@@ -84,7 +84,7 @@ html, body, [class*="css"] {
     font-family: 'Jost', sans-serif;
     font-size: 13px;
     font-weight: 300;
-    color: #8a7060;
+    color: #000000;  
     letter-spacing: 0.06em;
     margin-top: 14px;
     line-height: 1.7;
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
-  <div class="main-title">Dani<span>-summarizer</span></div>
+  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
+  <div class="main-title">Lumina</div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
