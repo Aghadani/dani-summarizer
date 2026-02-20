@@ -1,9 +1,9 @@
 import streamlit as st
-import google.generativeai as genai  # pip install google-generativeai
+from google import genai
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Lumina",
+    page_title="Dani-summarizer",
     page_icon="✿",
     layout="centered",
 )
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
-  <div class="main-title">Lumina</div>
+  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
+  <div class="main-title">Dani<span>-summarizer</span></div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
@@ -447,14 +447,13 @@ if clicked:
                 st.error("⚠️ API key not found. Please add GEMINI_API_KEY to your Streamlit secrets.")
                 st.stop()
 
-            genai.configure(api_key=api_key)
-            gemini = genai.GenerativeModel(
-                model_name="gemini-2.5-flash-preview-04-17",
-                system_instruction=system_prompt,
-            )
+            client_gemini = genai.Client(api_key=api_key)
 
             with st.spinner("Crafting your summary..."):
-                response = gemini.generate_content(user_prompt)
+                response = client_gemini.models.generate_content(
+                    model="gemini-2.5-flash-preview-04-17",
+                    contents=system_prompt + "\n\n" + user_prompt,
+                )
 
             summary = response.text
 
