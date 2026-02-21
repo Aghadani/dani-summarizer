@@ -442,20 +442,24 @@ if clicked:
 
         try:
             try:
-                api_key = st.secrets["GEMINI_API_KEY"]
+                api_key = st.secrets["GROQ_API_KEY"]
             except (KeyError, FileNotFoundError):
-                st.error("⚠️ API key not found. Please add GEMINI_API_KEY to your Streamlit secrets.")
+                st.error("⚠️ API key not found. Please add GROQ_API_KEY to your Streamlit secrets.")
                 st.stop()
 
-            client_gemini = genai.Client(api_key=api_key)
+            client_groq = Groq(api_key=api_key)
 
             with st.spinner("Crafting your summary..."):
-                response = client_gemini.models.generate_content(
-                    model="gemini-2.0-flash",
-                    contents=system_prompt + "\n\n" + user_prompt,
+                response = client_groq.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    max_tokens=1000,
                 )
 
-            summary = response.text
+            summary = response.choices[0].message.content
 
             orig_words = len(input_text.strip().split())
             summ_words = len(summary.strip().split())
@@ -497,6 +501,6 @@ if clicked:
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-footer">
-  <div class="footer-ornament">✿ &nbsp; Dani-summarizer &nbsp; · &nbsp; Powered by Gemini &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
+  <div class="footer-ornament">✿ &nbsp; Dani-summarizer &nbsp; · &nbsp; Powered by Groq · Llama 3.3 &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
 </div>
 """, unsafe_allow_html=True)
