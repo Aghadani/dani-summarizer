@@ -1,9 +1,9 @@
 import streamlit as st
-from groq import Groq
+import requests
 
 # ── Page config ──────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Dani-summarizer",
+    page_title="LUMINA",
     page_icon="✿",
     layout="centered",
 )
@@ -358,8 +358,8 @@ html, body, [class*="css"] {
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-header">
-  <span class="header-ornament">✦ &nbsp; summarizer &nbsp; ✦</span>
-  <div class="main-title">Dani<span>-summarizer</span></div>
+  <span class="header-ornament">✦ &nbsp; Told by Dani &nbsp; ✦</span>
+  <div class="main-title">LUMINA</div>
   <div class="tagline">
     Paste any text. Receive a clear, warm, humanized summary<br>that actually sounds like a person wrote it.
   </div>
@@ -447,19 +447,26 @@ if clicked:
                 st.error("⚠️ API key not found. Please add GROQ_API_KEY to your Streamlit secrets.")
                 st.stop()
 
-            client_groq = Groq(api_key=api_key)
-
             with st.spinner("Crafting your summary..."):
-                response = client_groq.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {"role": "user", "content": user_prompt},
-                    ],
-                    max_tokens=1000,
+                response = requests.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": "llama-3.3-70b-versatile",
+                        "messages": [
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_prompt},
+                        ],
+                        "max_tokens": 1000,
+                    },
+                    timeout=30,
                 )
+                response.raise_for_status()
 
-            summary = response.choices[0].message.content
+            summary = response.json()["choices"][0]["message"]["content"]
 
             orig_words = len(input_text.strip().split())
             summ_words = len(summary.strip().split())
@@ -501,6 +508,6 @@ if clicked:
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="dani-footer">
-  <div class="footer-ornament">✿ &nbsp; Dani-summarizer &nbsp; · &nbsp; Powered by Groq · Llama 3.3 &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
+  <div class="footer-ornament">✿ &nbsp; LUMINA &nbsp; · &nbsp; Powered by Groq · Llama 3.3 &nbsp; · &nbsp; No data stored &nbsp; ✿</div>
 </div>
 """, unsafe_allow_html=True)
